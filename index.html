@@ -20,17 +20,17 @@
 </head> 
 <body> 
 
-<div data-role="page">
+<div data-role="page" id="home">
 
 	<div data-role="header">
 		<h1><span class="small_note">DropNote: </span><span class="small_note" data-bind="text: HomeViewModel.userName"></span></h1>
 		<a href="#" data-mini="true" onClick="connectToDropbox()" data-icon="check" data-theme="a">connect</a>
 		<div data-role="navbar">
-		<ul>
-			<li><a href="index.html">Home</a></li>
-			<li><a href="b.html">Add</a></li>
-		</ul>
-</div><!-- /navbar -->
+			<ul>
+				<li><a href="#home">Home</a></li>
+				<li><a href="#add">Add</a></li>
+			</ul>
+		</div><!-- /navbar -->
 	</div><!-- /header -->
 
  
@@ -162,6 +162,20 @@
 
 </div><!-- /page -->
 
+
+<div data-role="page" id="add">
+
+	<div data-role="header">
+		<h1><span class="small_note">DropNote: </span><span class="small_note" data-bind="text: HomeViewModel.userName"></span></h1>
+		<a href="#" data-mini="true" onClick="connectToDropbox()" data-icon="check" data-theme="a">connect</a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#home">Home</a></li>
+				<li><a href="#add">Add</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div><!-- /header -->
+</div><!-- /page -->
 </body>
 
 <script src="Assets/JS/knockout-2.2.1.js"></script>
