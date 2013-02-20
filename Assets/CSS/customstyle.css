@@ -1,0 +1,13 @@
+.small_note {
+	font-size: 8pt;
+	font-style: italic;
+}
+
+.done {
+	background-color: black;
+}
+
+
+.notdone {
+	background-color: red;
+}
