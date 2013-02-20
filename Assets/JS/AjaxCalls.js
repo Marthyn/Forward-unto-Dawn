@@ -21,42 +21,58 @@ function connectToDropbox() {
 
   client.authDriver(new Dropbox.Drivers.Redirect({
       rememberUser: true
-    }));
+  }));
 
-client.authenticate(function(error, client) {
-  if (error) {
-    // Replace with a call to your own error-handling code.
-    //
-    // Don't forget to return from the callback, so you don't execute the code
-    // that assumes everything went well.
-    console.log(error);
-  }
+  client.authenticate(function(error, client) {
+    if (error) {
+      return showError(error);
+    }
+  });
 
-  // Replace with a call to your own application code.
-  //
-  // The user authorized your app, and everything went well.
-  // client is a Dropbox.Client instance that you can use to make API calls.
-  doSomethingCool(client);
-});
+  client.getUserInfo(HomeViewModel, function(error, userInfo) {
+    if (error) {
+      return showError(error);
+    }
 
-var doSomethingCool = function (client) {
-    
+    HomeViewModel.userName(userInfo.name);
+  });
+
+  checkIfUsedBefore(client);
 }
-
-var xhr = client.getUserInfo(HomeViewModel, function(error, userInfo) {
-      if (error) {
-        return showError(error);  // Something went wrong.
+  function readdir(path, client) {
+    client.readdir('/', function(error, result) {
+      if(error) {
+        return showError(error);
       }
 
-      HomeViewModel.userName(userInfo.name);
+      return result;
     });
-}
+  }
 
+  function mkdir(path, client) {
+    client.mkdir(path, function(error, callback){
+      if(error) {
+        return showError(error);
+      }
+      console.log(callback)
+    })
+  }
 
+  function checkIfUsedBefore(client) {
+    var valid = true;
+    client.readdir('/dropnote', function(error, callback) {
+      if(error) {
+        if(error.status == Dropbox.ApiError.NOT_FOUND) {
+          mkdir('/dropnote/', client);
+          mkdir('/dropnote/images', client);
+          mkdir('/dropnote/voice', client);
+          mkdir('/dropnote/video', client);
+          mkdir('/dropnote/text', client);
+        }
+      }
+    });
 
-
-
-
+  }
 
 var showError = function(error) {
   switch (error.status) {
