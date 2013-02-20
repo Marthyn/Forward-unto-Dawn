@@ -1,0 +1,1 @@
+This is an app to use a dropbox folder as a folder to store notes/video/voicerecordings
